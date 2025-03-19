@@ -1,0 +1,1 @@
+Arquivo placeholder para manter a pasta .idea visível no GitHub.
