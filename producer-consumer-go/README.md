@@ -79,3 +79,6 @@ Buffer atual: 1 itens
 ```
 
 ---
+## ▶️ Link Video Explicação
+
+https://drive.google.com/file/d/1U3_LlKzsqyL_JWzxOA9EdcvKkrFvOMcg/view?usp=sharing
