@@ -1,0 +1,2680 @@
+[
+    {
+        "id": "7d22fa7abb9deebe",
+        "type": "tab",
+        "label": "Sala de Aula Inteligente",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6cdfc998675170d5",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "header_group",
+        "order": 1,
+        "width": "12",
+        "height": "1",
+        "name": "Título Principal",
+        "label": "SMART ROOM - CONTROLE GERAL",
+        "format": "<div style=\"text-align: center; padding: 20px;\">\n    <h1 style=\"color: #2e8b57; margin: 0; font-size: 2.5em;\">🏫 SALA DE AULA INTELIGENTE</h1>\n    <p style=\"color: #ffffff; font-size: 1.2em; margin: 10px 0 0 0;\">Sistema IoT de Monitoramento e Controle em Tempo Real</p>\n</div>",
+        "layout": "col-center",
+        "style": true,
+        "font": "Arial Black,Arial Black,Gadget,sans-serif",
+        "fontSize": "27",
+        "color": "#2e8b57",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 130,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "1060cf7adbc1c2e1",
+        "type": "mqtt out",
+        "z": "7d22fa7abb9deebe",
+        "name": "Controlar LED",
+        "topic": "/sihs/lcds/led/listener",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3fd146a8d1e88afa",
+        "x": 1680,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "42e97a24bed3ecd4",
+        "type": "mqtt out",
+        "z": "7d22fa7abb9deebe",
+        "name": "Controlar Relé",
+        "topic": "/sihs/lcds/rele/listener",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3fd146a8d1e88afa",
+        "x": 1180,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "73b92e36f204a33b",
+        "type": "mqtt in",
+        "z": "7d22fa7abb9deebe",
+        "name": "Ler Distância Sonar",
+        "topic": "/sihs/lcds/sonar/distancia",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3fd146a8d1e88afa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 780,
+        "wires": [
+            [
+                "05db41158debb22e",
+                "f84e2a21e8ae8783",
+                "4f85abcfea809a2f"
+            ]
+        ]
+    },
+    {
+        "id": "f84e2a21e8ae8783",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Recebe Distância Sonar",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "133",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "133",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 390,
+        "y": 780,
+        "wires": [
+            [
+                "8d9320d0848b336d"
+            ],
+            [
+                "5aa92e9e350e55cd"
+            ]
+        ]
+    },
+    {
+        "id": "466b9c3a7eb1d005",
+        "type": "mqtt out",
+        "z": "7d22fa7abb9deebe",
+        "name": "Controlar Servo",
+        "topic": "/sihs/lcds/servo/listener",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3fd146a8d1e88afa",
+        "x": 1080,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "677ac2bbb9127ac9",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Girar Servo",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "girar",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 760,
+        "wires": [
+            [
+                "f434b8550927cecf",
+                "5f3d62913c8b76e0"
+            ]
+        ]
+    },
+    {
+        "id": "7afa3b94fe8cbe43",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Desgirar Servo",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "desgirar",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 800,
+        "wires": [
+            [
+                "f434b8550927cecf",
+                "5f3d62913c8b76e0"
+            ]
+        ]
+    },
+    {
+        "id": "f434b8550927cecf",
+        "type": "rbe",
+        "z": "7d22fa7abb9deebe",
+        "name": "Filtrar Último Estado",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "septopics": true,
+        "property": "payload",
+        "topi": "topic",
+        "x": 1060,
+        "y": 780,
+        "wires": [
+            [
+                "466b9c3a7eb1d005"
+            ]
+        ]
+    },
+    {
+        "id": "ed68c51d2ba93510",
+        "type": "mqtt in",
+        "z": "7d22fa7abb9deebe",
+        "name": "Ler Luminosidade",
+        "topic": "/sihs/lcds/lum",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3fd146a8d1e88afa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "d3f2853aa12fba2f",
+                "c303bfefc4fd01b8",
+                "36d35bd293bc1574"
+            ]
+        ]
+    },
+    {
+        "id": "2bc1b4d2566def05",
+        "type": "mqtt in",
+        "z": "7d22fa7abb9deebe",
+        "name": "Ler Temperatura",
+        "topic": "/sihs/lcds/dht/temp",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3fd146a8d1e88afa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 80,
+        "y": 400,
+        "wires": [
+            [
+                "f979ac9fa8b1675d",
+                "e9053edb4939d838",
+                "e1da45e27bbd70d1"
+            ]
+        ]
+    },
+    {
+        "id": "fcaf681a8a703536",
+        "type": "mqtt in",
+        "z": "7d22fa7abb9deebe",
+        "name": "Ler Umidade",
+        "topic": "/sihs/lcds/dht/hum",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "3fd146a8d1e88afa",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 640,
+        "wires": [
+            [
+                "db4f8756666e0eeb",
+                "af01a1a6bea1b994"
+            ]
+        ]
+    },
+    {
+        "id": "d3f2853aa12fba2f",
+        "type": "ui-gauge",
+        "z": "7d22fa7abb9deebe",
+        "name": "Gauge de Luminosidade",
+        "group": "light_group",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "4",
+        "height": "6",
+        "gtype": "gage",
+        "gstyle": "modern",
+        "title": "Nível de Luminosidade",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "LUX",
+        "icon": "fa-solid fa-sun",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff6b6b",
+                "text": "Baixa",
+                "textType": "label"
+            },
+            {
+                "from": "200",
+                "color": "#ffd93d",
+                "text": "Média",
+                "textType": "label"
+            },
+            {
+                "from": "400",
+                "color": "#6bcf7f",
+                "text": "Alta",
+                "textType": "label"
+            }
+        ],
+        "min": "0",
+        "max": "1000",
+        "sizeThickness": 20,
+        "sizeGap": "10",
+        "sizeKeyThickness": 10,
+        "styleRounded": true,
+        "styleGlow": true,
+        "className": "lux-gauge",
+        "x": 360,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "05db41158debb22e",
+        "type": "ui-gauge",
+        "z": "7d22fa7abb9deebe",
+        "name": "Gauge de Distância",
+        "group": "distance_group",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "4",
+        "height": "6",
+        "gtype": "gage",
+        "gstyle": "modern",
+        "title": "Distância do Sensor",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "cm",
+        "icon": "fa-solid fa-arrows-alt-h",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#6bcf7f",
+                "text": "Próximo",
+                "textType": "label"
+            },
+            {
+                "from": "100",
+                "color": "#ffd93d",
+                "text": "Médio",
+                "textType": "label"
+            },
+            {
+                "from": "200",
+                "color": "#ff6b6b",
+                "text": "Longe",
+                "textType": "label"
+            }
+        ],
+        "min": "0",
+        "max": "400",
+        "sizeThickness": 20,
+        "sizeGap": "10",
+        "sizeKeyThickness": 10,
+        "styleRounded": true,
+        "styleGlow": true,
+        "className": "distance-gauge",
+        "x": 390,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f979ac9fa8b1675d",
+        "type": "ui-gauge",
+        "z": "7d22fa7abb9deebe",
+        "name": "Gauge de Temperatura",
+        "group": "temp_group",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "4",
+        "height": "6",
+        "gtype": "gage",
+        "gstyle": "modern",
+        "title": "Temperatura Ambiente",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "°C",
+        "icon": "fa-solid fa-thermometer-half",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "-40",
+                "color": "#4dabf7",
+                "text": "Frio",
+                "textType": "label"
+            },
+            {
+                "from": "20",
+                "color": "#6bcf7f",
+                "text": "Ideal",
+                "textType": "label"
+            },
+            {
+                "from": "30",
+                "color": "#ff6b6b",
+                "text": "Quente",
+                "textType": "label"
+            }
+        ],
+        "min": "-40",
+        "max": "80",
+        "sizeThickness": "20",
+        "sizeGap": 6,
+        "sizeKeyThickness": 10,
+        "styleRounded": true,
+        "styleGlow": true,
+        "className": "temp-gauge",
+        "x": 330,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "db4f8756666e0eeb",
+        "type": "ui-gauge",
+        "z": "7d22fa7abb9deebe",
+        "name": "Gauge de Umidade",
+        "group": "temp_group",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": "4",
+        "height": "4",
+        "gtype": "gage",
+        "gstyle": "modern",
+        "title": "Umidade do Ar",
+        "alwaysShowTitle": true,
+        "floatingTitlePosition": "top-left",
+        "units": "%",
+        "icon": "fa-solid fa-droplet",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#4dabf7",
+                "text": "Baixa",
+                "textType": "label"
+            },
+            {
+                "from": "40",
+                "color": "#6bcf7f",
+                "text": "Ideal",
+                "textType": "label"
+            },
+            {
+                "from": "70",
+                "color": "#ff6b6b",
+                "text": "Alta",
+                "textType": "label"
+            }
+        ],
+        "min": "0",
+        "max": "100",
+        "sizeThickness": "20",
+        "sizeGap": 6,
+        "sizeKeyThickness": 10,
+        "styleRounded": true,
+        "styleGlow": true,
+        "className": "humidity-gauge",
+        "x": 270,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1c5e157eb6913fec",
+        "type": "ui-button",
+        "z": "7d22fa7abb9deebe",
+        "group": "light_group",
+        "name": "Ligar LED",
+        "label": "🔆 Ligar Luz",
+        "order": 2,
+        "width": "6",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "Acender a iluminação da sala",
+        "color": "#ffffff",
+        "bgcolor": "#2e8b57",
+        "className": "btn-success",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "ligar",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "#2e8b57",
+        "textColor": "#ffffff",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 560,
+        "y": 60,
+        "wires": [
+            [
+                "db222c07070190f3",
+                "cea5e57c1293270e"
+            ]
+        ]
+    },
+    {
+        "id": "d8ce29109abdcf75",
+        "type": "ui-button",
+        "z": "7d22fa7abb9deebe",
+        "group": "light_group",
+        "name": "Desligar LED",
+        "label": "🌙 Desligar Luz",
+        "order": 3,
+        "width": "6",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "Apagar a iluminação da sala",
+        "color": "#ffffff",
+        "bgcolor": "#dc3545",
+        "className": "btn-danger",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "desligar",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "#dc3545",
+        "textColor": "#ffffff",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 570,
+        "y": 140,
+        "wires": [
+            [
+                "db222c07070190f3",
+                "aec45555d36029cb"
+            ]
+        ]
+    },
+    {
+        "id": "b3c07329944b4286",
+        "type": "ui-button",
+        "z": "7d22fa7abb9deebe",
+        "group": "temp_group",
+        "name": "Ligar Relé",
+        "label": "❄️ Ligar Ar-Condicionado",
+        "order": 3,
+        "width": "6",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "Ativar o sistema de refrigeração",
+        "color": "#ffffff",
+        "bgcolor": "#2e8b57",
+        "className": "btn-success",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "ligar",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "#2e8b57",
+        "textColor": "#ffffff",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 560,
+        "y": 400,
+        "wires": [
+            [
+                "78eb0a5f4502c7a9",
+                "e388d2eb705cb1ee"
+            ]
+        ]
+    },
+    {
+        "id": "6a29b751f12fd70a",
+        "type": "ui-button",
+        "z": "7d22fa7abb9deebe",
+        "group": "temp_group",
+        "name": "Desligar Relé",
+        "label": "🌡️ Desligar Ar-Condicionado",
+        "order": 4,
+        "width": "6",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "Desativar o sistema de refrigeração",
+        "color": "#ffffff",
+        "bgcolor": "#dc3545",
+        "className": "btn-danger",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "desligar",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "#dc3545",
+        "textColor": "#ffffff",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 570,
+        "y": 500,
+        "wires": [
+            [
+                "78eb0a5f4502c7a9",
+                "7dcc743d400d4720"
+            ]
+        ]
+    },
+    {
+        "id": "5f3d62913c8b76e0",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Controlar Texto Servo",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "girar",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "desgirar",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1040,
+        "y": 920,
+        "wires": [
+            [
+                "02781a28e70c45fd"
+            ],
+            [
+                "95e548bbb4616d31"
+            ]
+        ]
+    },
+    {
+        "id": "95e548bbb4616d31",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Texto Servo Fechado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "🔒 PORTA FECHADA",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#f8d7da",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#721c24",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1300,
+        "y": 940,
+        "wires": [
+            [
+                "e9fb256e2142dd62"
+            ]
+        ]
+    },
+    {
+        "id": "e9fb256e2142dd62",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "distance_group",
+        "order": 2,
+        "width": "12",
+        "height": "1",
+        "name": "Estado do Servo",
+        "label": "",
+        "format": "<div style=\"text-align: center; padding: 15px; border-radius: 8px; font-weight: bold; font-size: 1.2em; background-color: {{msg.background}}; color: {{msg.color}};\">{{msg.payload}}</div>",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": "16",
+        "color": "#717171",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1570,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "02781a28e70c45fd",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Texto Servo Aberto",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "🔓 PORTA ABERTA",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#d4edda",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#155724",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1290,
+        "y": 880,
+        "wires": [
+            [
+                "e9fb256e2142dd62"
+            ]
+        ]
+    },
+    {
+        "id": "db222c07070190f3",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Atualizar Status LED",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ligar",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "desligar",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 820,
+        "y": 80,
+        "wires": [
+            [
+                "d150c23847608e0e"
+            ],
+            [
+                "5f96f0410ab1ca55"
+            ]
+        ]
+    },
+    {
+        "id": "d150c23847608e0e",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Texto LED Ligado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "💡 LUZES LIGADAS",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#fff3cd",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#856404",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 80,
+        "wires": [
+            [
+                "6ad6f48e2faf88a7"
+            ]
+        ]
+    },
+    {
+        "id": "6ad6f48e2faf88a7",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "light_group",
+        "order": 4,
+        "width": "12",
+        "height": "1",
+        "name": "Estado do LED",
+        "label": "",
+        "format": "<div style=\"text-align: center; padding: 15px; border-radius: 8px; font-weight: bold; font-size: 1.2em; background-color: {{msg.background}}; color: {{msg.color}};\">{{msg.payload}}</div>",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": "16",
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1580,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5f96f0410ab1ca55",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Texto LED Desligado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "🌙 LUZES DESLIGADAS",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#f8d7da",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#721c24",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1050,
+        "y": 180,
+        "wires": [
+            [
+                "6ad6f48e2faf88a7"
+            ]
+        ]
+    },
+    {
+        "id": "78eb0a5f4502c7a9",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Atualizar Status Relé",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ligar",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "desligar",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 800,
+        "y": 420,
+        "wires": [
+            [
+                "6c7e203fcf3d36ab"
+            ],
+            [
+                "bf09fc345a751a99"
+            ]
+        ]
+    },
+    {
+        "id": "6c7e203fcf3d36ab",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Texto Relé Ligado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "❄️ AR-CONDICIONADO LIGADO",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#d1ecf1",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#0c5460",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1430,
+        "y": 400,
+        "wires": [
+            [
+                "a2e45d36d8098f75"
+            ]
+        ]
+    },
+    {
+        "id": "bf09fc345a751a99",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Texto Relé Desligado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "🌡️ AR-CONDICIONADO DESLIGADO",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#f8d7da",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#721c24",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 460,
+        "wires": [
+            [
+                "a2e45d36d8098f75"
+            ]
+        ]
+    },
+    {
+        "id": "a2e45d36d8098f75",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "temp_group",
+        "order": 5,
+        "width": "12",
+        "height": "1",
+        "name": "Estado do Relé",
+        "label": "",
+        "format": "<div style=\"text-align: center; padding: 15px; border-radius: 8px; font-weight: bold; font-size: 1.2em; background-color: {{msg.background}}; color: {{msg.color}};\">{{msg.payload}}</div>",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": "16",
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1820,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "c303bfefc4fd01b8",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Controle Automático de Luz",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "200",
+                "vt": "num"
+            },
+            {
+                "t": "gt",
+                "v": "400",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 360,
+        "y": 240,
+        "wires": [
+            [
+                "d3760670b932b802"
+            ],
+            [
+                "640d83dc8257c826"
+            ]
+        ]
+    },
+    {
+        "id": "e9053edb4939d838",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Controle Automático de Temperatura",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "28",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "22",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 350,
+        "y": 560,
+        "wires": [
+            [
+                "144b775d8cf31728"
+            ],
+            [
+                "58786364bb0ab484"
+            ]
+        ]
+    },
+    {
+        "id": "cca9925cbdd71aa0",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Ligar LED Automaticamente",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "ligar",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1040,
+        "y": 260,
+        "wires": [
+            [
+                "1060cf7adbc1c2e1",
+                "db222c07070190f3"
+            ]
+        ]
+    },
+    {
+        "id": "3476cf965408de9c",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Desligar LED Automaticamente",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "desligar",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 320,
+        "wires": [
+            [
+                "1060cf7adbc1c2e1",
+                "db222c07070190f3"
+            ]
+        ]
+    },
+    {
+        "id": "e944a076991ee781",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Ligar Relé Automaticamente",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "ligar",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 580,
+        "wires": [
+            [
+                "42e97a24bed3ecd4",
+                "78eb0a5f4502c7a9"
+            ]
+        ]
+    },
+    {
+        "id": "3f7096f4cdc2a5d6",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Desligar Relé Automaticamente",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "desligar",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1370,
+        "y": 580,
+        "wires": [
+            [
+                "42e97a24bed3ecd4",
+                "78eb0a5f4502c7a9"
+            ]
+        ]
+    },
+    {
+        "id": "e790dee4dd7d51dc",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "system_group",
+        "order": 1,
+        "width": "12",
+        "height": "1",
+        "name": "Status do Sistema",
+        "label": "TESTE",
+        "format": "<div style=\"text-align: center; padding: 20px; background: linear-gradient(135deg, #2e8b57, #1a472a); color: white; border-radius: 10px;\">\n    <h3 style=\"margin: 0;\">🔄 SISTEMA OPERACIONAL</h3>\n    <p style=\"margin: 5px 0 0 0; font-size: 0.9em;\">Todos os sensores estão funcionando normalmente</p>\n</div>",
+        "layout": "col-center",
+        "style": true,
+        "font": "Trebuchet MS,Helvetica,sans-serif",
+        "fontSize": "16",
+        "color": "#ffffff",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 110,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "31bc6c3aa6e245a7",
+        "type": "ui-switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Modo Automático",
+        "label": "🔄 Modo Automático",
+        "group": "system_group",
+        "order": 2,
+        "width": "2",
+        "height": "1",
+        "passthru": true,
+        "decouple": false,
+        "topic": "auto_mode",
+        "topicType": "msg",
+        "style": "",
+        "className": "",
+        "layout": "row-spread",
+        "clickableArea": "switch",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "#ffffff",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "#ffffff",
+        "x": 90,
+        "y": 1080,
+        "wires": [
+            [
+                "247f14f99b22ef4e"
+            ]
+        ]
+    },
+    {
+        "id": "13781f424090277e",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "system_group",
+        "order": 3,
+        "width": "2",
+        "height": "1",
+        "name": "Status Modo Automático",
+        "label": "",
+        "format": "<div style=\"text-align: center; padding: 10px; border-radius: 5px; background-color: {{msg.background}}; color: {{msg.color}};\">\n    <strong>Modo Automático:</strong> {{msg.status}}\n</div>",
+        "layout": "row-center",
+        "style": true,
+        "font": "Verdana,Verdana,Geneva,sans-serif",
+        "fontSize": "19",
+        "color": "#00c2bf",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 350,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "cea5e57c1293270e",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Verificar Modo Automático LED",
+        "property": "global.auto_mode",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 830,
+        "y": 40,
+        "wires": [
+            [
+                "1060cf7adbc1c2e1"
+            ],
+            [
+                "e557f2dc401fbee2"
+            ]
+        ]
+    },
+    {
+        "id": "aec45555d36029cb",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Verificar Modo Automático LED 2",
+        "property": "global.auto_mode",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 800,
+        "y": 160,
+        "wires": [
+            [
+                "1060cf7adbc1c2e1"
+            ],
+            [
+                "e557f2dc401fbee2"
+            ]
+        ]
+    },
+    {
+        "id": "e388d2eb705cb1ee",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Verificar Modo Automático Relé",
+        "property": "global.auto_mode",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 800,
+        "y": 380,
+        "wires": [
+            [
+                "42e97a24bed3ecd4"
+            ],
+            [
+                "5e3f3ff33c7be0b1"
+            ]
+        ]
+    },
+    {
+        "id": "7dcc743d400d4720",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Verificar Modo Automático Relé 2",
+        "property": "global.auto_mode",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 840,
+        "y": 480,
+        "wires": [
+            [
+                "42e97a24bed3ecd4"
+            ],
+            [
+                "5e3f3ff33c7be0b1"
+            ]
+        ]
+    },
+    {
+        "id": "8d9320d0848b336d",
+        "type": "link out",
+        "z": "7d22fa7abb9deebe",
+        "name": "Para Abrir Porta",
+        "mode": "link",
+        "links": [
+            "69531c22f9181097"
+        ],
+        "x": 610,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "5aa92e9e350e55cd",
+        "type": "link out",
+        "z": "7d22fa7abb9deebe",
+        "name": "Para Fechar Porta",
+        "mode": "link",
+        "links": [
+            "0d043682aeff183a"
+        ],
+        "x": 610,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "d3760670b932b802",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Verificar Modo Automático Auto LED",
+        "property": "global.auto_mode",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 640,
+        "y": 220,
+        "wires": [
+            [
+                "cca9925cbdd71aa0"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "640d83dc8257c826",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Verificar Modo Automático Auto LED 2",
+        "property": "global.auto_mode",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 640,
+        "y": 260,
+        "wires": [
+            [
+                "3476cf965408de9c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "144b775d8cf31728",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Verificar Modo Automático Auto Relé",
+        "property": "global.auto_mode",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 690,
+        "y": 540,
+        "wires": [
+            [
+                "e944a076991ee781"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "58786364bb0ab484",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Verificar Modo Automático Auto Relé 2",
+        "property": "global.auto_mode",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 690,
+        "y": 580,
+        "wires": [
+            [
+                "3f7096f4cdc2a5d6"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "e557f2dc401fbee2",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Mensagem Modo Manual LED",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "⚠️ Modo Automático Ativado - Controle Manual Bloqueado",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#fff3cd",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#856404",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1290,
+        "y": 140,
+        "wires": [
+            [
+                "73870ebc1f9d2bdb"
+            ]
+        ]
+    },
+    {
+        "id": "5e3f3ff33c7be0b1",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Mensagem Modo Manual Relé",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "⚠️ Modo Automático Ativado - Controle Manual Bloqueado",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#fff3cd",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#856404",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1210,
+        "y": 360,
+        "wires": [
+            [
+                "73870ebc1f9d2bdb"
+            ]
+        ]
+    },
+    {
+        "id": "5236b14105f47245",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Atualizar Texto Modo Automático",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true",
+                "v": "true",
+                "vt": "bool"
+            },
+            {
+                "t": "false",
+                "v": "false",
+                "vt": "bool"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 1080,
+        "wires": [
+            [
+                "9c48aa4c0812ce1f"
+            ],
+            [
+                "eb82fd2693f66b2b"
+            ]
+        ]
+    },
+    {
+        "id": "9c48aa4c0812ce1f",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Texto Modo Automático On",
+        "rules": [
+            {
+                "t": "set",
+                "p": "status",
+                "pt": "msg",
+                "to": "Controle do Sistema Automático",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#d4edda",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#155724",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 1060,
+        "wires": [
+            [
+                "13781f424090277e"
+            ]
+        ]
+    },
+    {
+        "id": "eb82fd2693f66b2b",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Texto Modo Automático Off",
+        "rules": [
+            {
+                "t": "set",
+                "p": "status",
+                "pt": "msg",
+                "to": "Controle do Sistema Manual Ativado",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#f8d7da",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#721c24",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 1100,
+        "wires": [
+            [
+                "13781f424090277e"
+            ]
+        ]
+    },
+    {
+        "id": "247f14f99b22ef4e",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Definir Variável Global",
+        "rules": [
+            {
+                "t": "set",
+                "p": "global.auto_mode",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 390,
+        "y": 1140,
+        "wires": [
+            [
+                "5236b14105f47245",
+                "78891c9a496f9471"
+            ]
+        ]
+    },
+    {
+        "id": "78891c9a496f9471",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Atualizar Mensagem Modo Manual",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true",
+                "v": "true",
+                "vt": "bool"
+            },
+            {
+                "t": "false",
+                "v": "false",
+                "vt": "bool"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 650,
+        "y": 1180,
+        "wires": [
+            [
+                "69835eba3748880f"
+            ],
+            [
+                "2f3f30ae570ccbdb"
+            ]
+        ]
+    },
+    {
+        "id": "69835eba3748880f",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Mensagem Modo Automático Ativo",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "⚠️ Modo Automático Ativado - Controle Manual Bloqueado",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#fff3cd",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#856404",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 1160,
+        "wires": [
+            [
+                "73870ebc1f9d2bdb"
+            ]
+        ]
+    },
+    {
+        "id": "2f3f30ae570ccbdb",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "Mensagem Modo Manual Ativo",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "✅ Modo Automático Desativado - Controle Manual Ativo",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#d4edda",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#155724",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 1200,
+        "wires": [
+            [
+                "73870ebc1f9d2bdb"
+            ]
+        ]
+    },
+    {
+        "id": "36d35bd293bc1574",
+        "type": "function",
+        "z": "7d22fa7abb9deebe",
+        "name": "Armazenar Dados Luz",
+        "func": "// Armazenar dados de luminosidade para estatísticas\nif (!context.global.lightData) {\n    context.global.lightData = [];\n}\n\ncontext.global.lightData.push({\n    timestamp: new Date(),\n    value: parseFloat(msg.payload)\n});\n\n// Manter apenas os últimos 100 registros\nif (context.global.lightData.length > 100) {\n    context.global.lightData = context.global.lightData.slice(-100);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e1da45e27bbd70d1",
+        "type": "function",
+        "z": "7d22fa7abb9deebe",
+        "name": "Armazenar Dados Temperatura",
+        "func": "// Armazenar dados de temperatura para estatísticas\nif (!context.global.tempData) {\n    context.global.tempData = [];\n}\n\ncontext.global.tempData.push({\n    timestamp: new Date(),\n    value: parseFloat(msg.payload)\n});\n\n// Manter apenas os últimos 100 registros\nif (context.global.tempData.length > 100) {\n    context.global.tempData = context.global.tempData.slice(-100);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "af01a1a6bea1b994",
+        "type": "function",
+        "z": "7d22fa7abb9deebe",
+        "name": "Armazenar Dados Umidade",
+        "func": "// Armazenar dados de umidade para estatísticas\nif (!context.global.humidityData) {\n    context.global.humidityData = [];\n}\n\ncontext.global.humidityData.push({\n    timestamp: new Date(),\n    value: parseFloat(msg.payload)\n});\n\n// Manter apenas os últimos 100 registros\nif (context.global.humidityData.length > 100) {\n    context.global.humidityData = context.global.humidityData.slice(-100);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4f85abcfea809a2f",
+        "type": "function",
+        "z": "7d22fa7abb9deebe",
+        "name": "Armazenar Dados Distância",
+        "func": "// Armazenar dados de distância para estatísticas\nif (!context.global.distanceData) {\n    context.global.distanceData = [];\n}\n\ncontext.global.distanceData.push({\n    timestamp: new Date(),\n    value: parseFloat(msg.payload)\n});\n\n// Manter apenas os últimos 100 registros\nif (context.global.distanceData.length > 100) {\n    context.global.distanceData = context.global.distanceData.slice(-100);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "63010e9a3459958b",
+        "type": "ui-button",
+        "z": "7d22fa7abb9deebe",
+        "group": "light_group",
+        "name": "Ver Estatísticas Luz",
+        "label": "📊 Estatísticas de Luminosidade",
+        "order": 5,
+        "width": "0",
+        "height": "0",
+        "emulateClick": false,
+        "tooltip": "Visualizar estatísticas de luminosidade",
+        "color": "#ffffff",
+        "bgcolor": "#6f42c1",
+        "className": "btn-info",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "show",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "#6f42c1",
+        "textColor": "#ffffff",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1470,
+        "y": 220,
+        "wires": [
+            [
+                "7ba7885081537310"
+            ]
+        ]
+    },
+    {
+        "id": "7ba7885081537310",
+        "type": "function",
+        "z": "7d22fa7abb9deebe",
+        "name": "Gerar Estatísticas Luz",
+        "func": "const data = context.global.lightData || [];\n\nif (data.length === 0) {\n    msg.payload = \"<div style='text-align: center; padding: 20px; color: #666;'>Nenhum dado disponível</div>\";\n    return msg;\n}\n\nconst values = data.map(d => d.value);\nconst max = Math.max(...values).toFixed(1);\nconst min = Math.min(...values).toFixed(1);\nconst avg = (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1);\n\nmsg.payload = `\n<div style=\"background: white; padding: 15px; border-radius: 8px; margin: 10px 0;\">\n    <h4 style=\"margin: 0 0 10px 0; color: #333;\">📈 Estatísticas de Luminosidade</h4>\n    <div style=\"display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;\">\n        <div style=\"text-align: center; padding: 10px; background: #e3f2fd; border-radius: 5px;\">\n            <div style=\"font-size: 0.8em; color: #1976d2;\">Máximo</div>\n            <div style=\"font-weight: bold; font-size: 1.2em;\">${max} LUX</div>\n        </div>\n        <div style=\"text-align: center; padding: 10px; background: #f3e5f5; border-radius: 5px;\">\n            <div style=\"font-size: 0.8em; color: #7b1fa2;\">Mínimo</div>\n            <div style=\"font-weight: bold; font-size: 1.2em;\">${min} LUX</div>\n        </div>\n        <div style=\"text-align: center; padding: 10px; background: #e8f5e8; border-radius: 5px;\">\n            <div style=\"font-size: 0.8em; color: #388e3c;\">Média</div>\n            <div style=\"font-weight: bold; font-size: 1.2em;\">${avg} LUX</div>\n        </div>\n    </div>\n</div>\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1740,
+        "y": 220,
+        "wires": [
+            [
+                "e1f4049ea3c72c14"
+            ]
+        ]
+    },
+    {
+        "id": "e1f4049ea3c72c14",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "light_group",
+        "order": 6,
+        "width": "0",
+        "height": "0",
+        "name": "Display Estatísticas Luz",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": "14",
+        "color": "#333333",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 2030,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "d88e445acd6574e0",
+        "type": "ui-button",
+        "z": "7d22fa7abb9deebe",
+        "group": "temp_group",
+        "name": "Ver Estatísticas Temp/Umidade",
+        "label": "📊 Estatísticas Temp/Umidade",
+        "order": 6,
+        "width": "0",
+        "height": "0",
+        "emulateClick": false,
+        "tooltip": "Visualizar estatísticas de temperatura e umidade",
+        "color": "#ffffff",
+        "bgcolor": "#6f42c1",
+        "className": "btn-info",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "show",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "#6f42c1",
+        "textColor": "#ffffff",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 1510,
+        "y": 300,
+        "wires": [
+            [
+                "1cf6443442425c4a"
+            ]
+        ]
+    },
+    {
+        "id": "1cf6443442425c4a",
+        "type": "function",
+        "z": "7d22fa7abb9deebe",
+        "name": "Gerar Estatísticas Temp/Umidade",
+        "func": "const tempData = context.global.tempData || [];\nconst humidityData = context.global.humidityData || [];\n\nlet tempHtml = \"<div style='text-align: center; padding: 10px; color: #666;'>Nenhum dado de temperatura</div>\";\nlet humidityHtml = \"<div style='text-align: center; padding: 10px; color: #666;'>Nenhum dado de umidade</div>\";\n\nif (tempData.length > 0) {\n    const values = tempData.map(d => d.value);\n    const max = Math.max(...values).toFixed(1);\n    const min = Math.min(...values).toFixed(1);\n    const avg = (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1);\n    \n    tempHtml = `\n    <div style=\"margin-bottom: 15px;\">\n        <h5 style=\"margin: 0 0 5px 0; color: #d32f2f;\">🌡️ Temperatura</h5>\n        <div style=\"display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; font-size: 0.9em;\">\n            <div style=\"text-align: center; padding: 5px; background: #ffebee; border-radius: 3px;\">\n                <div>Máx: ${max}°C</div>\n            </div>\n            <div style=\"text-align: center; padding: 5px; background: #fce4ec; border-radius: 3px;\">\n                <div>Mín: ${min}°C</div>\n            </div>\n            <div style=\"text-align: center; padding: 5px; background: #f3e5f5; border-radius: 3px;\">\n                <div>Méd: ${avg}°C</div>\n            </div>\n        </div>\n    </div>\n    `;\n}\n\nif (humidityData.length > 0) {\n    const values = humidityData.map(d => d.value);\n    const max = Math.max(...values).toFixed(1);\n    const min = Math.min(...values).toFixed(1);\n    const avg = (values.reduce((a, b) => a + b, 0) / values.length).toFixed(1);\n    \n    humidityHtml = `\n    <div>\n        <h5 style=\"margin: 0 0 5px 0; color: #1976d2;\">💧 Umidade</h5>\n        <div style=\"display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; font-size: 0.9em;\">\n            <div style=\"text-align: center; padding: 5px; background: #e3f2fd; border-radius: 3px;\">\n                <div>Máx: ${max}%</div>\n            </div>\n            <div style=\"text-align: center; padding: 5px; background: #e8f5e8; border-radius: 3px;\">\n                <div>Mín: ${min}%</div>\n            </div>\n            <div style=\"text-align: center; padding: 5px; background: #f0f4c3; border-radius: 3px;\">\n                <div>Méd: ${avg}%</div>\n            </div>\n        </div>\n    </div>\n    `;\n}\n\nmsg.payload = `\n<div style=\"background: white; padding: 15px; border-radius: 8px; margin: 10px 0;\">\n    <h4 style=\"margin: 0 0 10px 0; color: #333;\">📈 Estatísticas Ambientais</h4>\n    ${tempHtml}\n    ${humidityHtml}\n</div>\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1880,
+        "y": 300,
+        "wires": [
+            [
+                "671e35bd6343a144"
+            ]
+        ]
+    },
+    {
+        "id": "671e35bd6343a144",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "temp_group",
+        "order": 7,
+        "width": "0",
+        "height": "0",
+        "name": "Display Estatísticas Temp/Umidade",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": "14",
+        "color": "#333333",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 2260,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "42f142633533bb2c",
+        "type": "ui-button",
+        "z": "7d22fa7abb9deebe",
+        "group": "distance_group",
+        "name": "Ver Estatísticas Porta",
+        "label": "📊 Estatísticas da Porta",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "emulateClick": false,
+        "tooltip": "Visualizar estatísticas de abertura/fechamento",
+        "color": "#ffffff",
+        "bgcolor": "#6f42c1",
+        "className": "btn-info",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "show",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "buttonColor": "#6f42c1",
+        "textColor": "#ffffff",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 610,
+        "y": 960,
+        "wires": [
+            [
+                "bb71331070e1b352"
+            ]
+        ]
+    },
+    {
+        "id": "bb71331070e1b352",
+        "type": "function",
+        "z": "7d22fa7abb9deebe",
+        "name": "Gerar Estatísticas Porta",
+        "func": "const data = context.global.distanceData || [];\n\nif (data.length === 0) {\n    msg.payload = \"<div style='text-align: center; padding: 20px; color: #666;'>Nenhum dado disponível</div>\";\n    return msg;\n}\n\n// Calcular estatísticas de porta\nconst openReadings = data.filter(d => d.value < 133).length;\nconst closedReadings = data.filter(d => d.value >= 133).length;\nconst totalReadings = data.length;\n\nconst openTime = ((openReadings / totalReadings) * 100).toFixed(1);\nconst closedTime = ((closedReadings / totalReadings) * 100).toFixed(1);\n\n// Encontrar distâncias características\nconst openDistances = data.filter(d => d.value < 133).map(d => d.value);\nconst closedDistances = data.filter(d => d.value >= 133).map(d => d.value);\n\nconst avgOpenDistance = openDistances.length > 0 ? (openDistances.reduce((a, b) => a + b, 0) / openDistances.length).toFixed(1) : \"N/A\";\nconst avgClosedDistance = closedDistances.length > 0 ? (closedDistances.reduce((a, b) => a + b, 0) / closedDistances.length).toFixed(1) : \"N/A\";\n\nmsg.payload = `\n<div style=\"background: white; padding: 15px; border-radius: 8px; margin: 10px 0;\">\n    <h4 style=\"margin: 0 0 10px 0; color: #333;\">📊 Estatísticas da Porta</h4>\n    <div style=\"display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;\">\n        <div style=\"text-align: center; padding: 10px; background: #d4edda; border-radius: 5px;\">\n            <div style=\"font-size: 0.8em; color: #155724;\">Tempo Aberta</div>\n            <div style=\"font-weight: bold; font-size: 1.2em;\">${openTime}%</div>\n        </div>\n        <div style=\"text-align: center; padding: 10px; background: #f8d7da; border-radius: 5px;\">\n            <div style=\"font-size: 0.8em; color: #721c24;\">Tempo Fechada</div>\n            <div style=\"font-weight: bold; font-size: 1.2em;\">${closedTime}%</div>\n        </div>\n        <div style=\"text-align: center; padding: 10px; background: #e3f2fd; border-radius: 5px;\">\n            <div style=\"font-size: 0.8em; color: #1976d2;\">Distância Aberta</div>\n            <div style=\"font-weight: bold; font-size: 1.2em;\">${avgOpenDistance} cm</div>\n        </div>\n        <div style=\"text-align: center; padding: 10px; background: #fff3cd; border-radius: 5px;\">\n            <div style=\"font-size: 0.8em; color: #856404;\">Distância Fechada</div>\n            <div style=\"font-weight: bold; font-size: 1.2em;\">${avgClosedDistance} cm</div>\n        </div>\n    </div>\n    <div style=\"margin-top: 10px; font-size: 0.8em; color: #666; text-align: center;\">\n        Baseado em ${totalReadings} leituras recentes\n    </div>\n</div>\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 960,
+        "wires": [
+            [
+                "e4fd45efef9a7f95"
+            ]
+        ]
+    },
+    {
+        "id": "e4fd45efef9a7f95",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "distance_group",
+        "order": 4,
+        "width": "0",
+        "height": "0",
+        "name": "Display Estatísticas Porta",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "style": false,
+        "font": "",
+        "fontSize": "14",
+        "color": "#333333",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1090,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "15ccc4a3d199b6b2",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "system_group",
+        "order": 5,
+        "width": "12",
+        "height": "1",
+        "name": "Status MQTT",
+        "label": "",
+        "format": "<div style=\"text-align: center; padding: 10px; border-radius: 5px; background-color: {{msg.background}}; color: {{msg.color}};\">\n    <strong>Status MQTT:</strong> {{msg.payload}}\n</div>",
+        "layout": "col-center",
+        "style": true,
+        "font": "",
+        "fontSize": "14",
+        "color": "#ffffff",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 160,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "178dea4720fe81b1",
+        "type": "switch",
+        "z": "7d22fa7abb9deebe",
+        "name": "Atualizar Status MQTT",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "connected",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "connecting",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "disconnected",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 100,
+        "y": 1360,
+        "wires": [
+            [
+                "e33f76523ccd3269"
+            ],
+            [
+                "19e852fdf6ecf8e3"
+            ],
+            [
+                "f2ccc3844f979f49"
+            ]
+        ]
+    },
+    {
+        "id": "e33f76523ccd3269",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "MQTT Conectado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "✅ Conectado",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#d4edda",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#155724",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 1280,
+        "wires": [
+            [
+                "15ccc4a3d199b6b2"
+            ]
+        ]
+    },
+    {
+        "id": "19e852fdf6ecf8e3",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "MQTT Conectando",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "🔄 Estabelecendo conexão...",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#fff3cd",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#856404",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 1320,
+        "wires": [
+            [
+                "15ccc4a3d199b6b2"
+            ]
+        ]
+    },
+    {
+        "id": "f2ccc3844f979f49",
+        "type": "change",
+        "z": "7d22fa7abb9deebe",
+        "name": "MQTT Desconectado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "❌ Sem conexão",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "background",
+                "pt": "msg",
+                "to": "#f8d7da",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "#721c24",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 1360,
+        "wires": [
+            [
+                "15ccc4a3d199b6b2"
+            ]
+        ]
+    },
+    {
+        "id": "69531c22f9181097",
+        "type": "link in",
+        "z": "7d22fa7abb9deebe",
+        "name": "Da Abertura da Porta",
+        "links": [
+            "8d9320d0848b336d"
+        ],
+        "x": 590,
+        "y": 760,
+        "wires": [
+            [
+                "677ac2bbb9127ac9"
+            ]
+        ]
+    },
+    {
+        "id": "0d043682aeff183a",
+        "type": "link in",
+        "z": "7d22fa7abb9deebe",
+        "name": "Do Fechamento da Porta",
+        "links": [
+            "5aa92e9e350e55cd"
+        ],
+        "x": 590,
+        "y": 800,
+        "wires": [
+            [
+                "7afa3b94fe8cbe43"
+            ]
+        ]
+    },
+    {
+        "id": "73870ebc1f9d2bdb",
+        "type": "ui-text",
+        "z": "7d22fa7abb9deebe",
+        "group": "system_group",
+        "order": 4,
+        "width": "12",
+        "height": "1",
+        "name": "Display Modo Manual",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "style": true,
+        "font": "",
+        "fontSize": "22",
+        "color": "#856404",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1390,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "header_group",
+        "type": "ui-group",
+        "name": "Cabeçalho do Sistema",
+        "page": "d166bfe97fc91a38",
+        "width": "12",
+        "height": 1,
+        "order": 1,
+        "showTitle": false,
+        "className": "dashboard-header",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "3fd146a8d1e88afa",
+        "type": "mqtt-broker",
+        "name": "Conexão Wowki ESP32",
+        "broker": "broker.mqttdashboard.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "light_group",
+        "type": "ui-group",
+        "name": "💡 Controle de Luminosidade",
+        "page": "d166bfe97fc91a38",
+        "width": "4",
+        "height": 1,
+        "order": 3,
+        "showTitle": true,
+        "className": "luminosity-card",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "distance_group",
+        "type": "ui-group",
+        "name": "🚪 Controle de Acesso",
+        "page": "d166bfe97fc91a38",
+        "width": "4",
+        "height": 1,
+        "order": 4,
+        "showTitle": true,
+        "className": "access-card",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "temp_group",
+        "type": "ui-group",
+        "name": "🌡️ Controle de Temperatura",
+        "page": "d166bfe97fc91a38",
+        "width": "4",
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "temperature-card",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "system_group",
+        "type": "ui-group",
+        "name": "⚙️ Controles do Sistema",
+        "page": "d166bfe97fc91a38",
+        "width": "12",
+        "height": 1,
+        "order": 5,
+        "showTitle": true,
+        "className": "system-controls",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "d166bfe97fc91a38",
+        "type": "ui-page",
+        "name": "Visão Geral - Sala Inteligente",
+        "ui": "3638793cfdbafd2d",
+        "path": "/overview",
+        "icon": "fa-solid fa-house",
+        "layout": "grid",
+        "theme": "8d61e5740d042deb",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "12"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "12"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "12"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "3638793cfdbafd2d",
+        "type": "ui-base",
+        "name": "Dashboard Inteligente",
+        "path": "/dashboard",
+        "appIcon": "fa-solid fa-gauge-high",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": true
+    },
+    {
+        "id": "8d61e5740d042deb",
+        "type": "ui-theme",
+        "name": "Tema Moderno",
+        "colors": {
+            "surface": "#1a472a",
+            "primary": "#2e8b57",
+            "bgPage": "#0d2818",
+            "groupBg": "#ffffff",
+            "groupOutline": "#2e8b57",
+            "groupTextColor": "#1a472a",
+            "widgetBg": "#ffffff",
+            "widgetTextColor": "#1a472a",
+            "widgetBorderColor": "#2e8b57"
+        },
+        "sizes": {
+            "density": "comfortable",
+            "pagePadding": "20px",
+            "groupGap": "20px",
+            "groupBorderRadius": "12px",
+            "widgetGap": "15px"
+        }
+    },
+    {
+        "id": "0bf6abbe10e41e6d",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.28.0"
+        }
+    }
+]
