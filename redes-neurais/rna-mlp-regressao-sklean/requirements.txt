@@ -1,0 +1,14 @@
+# Manipulação e análise de dados
+pandas==2.2.2
+numpy==1.26.4
+
+# Visualização de dados
+matplotlib==3.9.2
+seaborn==0.13.2
+
+# Machine Learning e Redes Neurais
+scikit-learn==1.5.2
+
+# Ambiente interativo (caso use Jupyter)
+jupyter==1.1.1
+notebook==7.2.2
